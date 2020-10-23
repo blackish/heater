@@ -1,0 +1,81 @@
+basePath: /heaterapi/v1
+host: 192.168.1.111
+info:
+  contact: {}
+  description: Heater server
+  license: {}
+  title: Heater REST API
+  version: "1.0"
+paths:
+  /calendar:
+    delete:
+      parameters:
+      - description: calendar ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204": {}
+      summary: Delete calendar
+    get:
+      parameters:
+      - description: optional calendar id
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Retreives current calendars
+    put:
+      parameters:
+      - description: calendar ID
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204": {}
+      summary: Update or create calendar body should contain JSON with data
+  /defaulttemp:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Get default temperature
+    put:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "204": {}
+      summary: 'Set default temperature. Body should contain JSON { TLow: <tlow>,
+        THigh: <thigh> }'
+  /override:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Retreives calendar override
+    put:
+      produces:
+      - application/json
+      responses:
+        "204": {}
+      summary: set calendar override
+  /sensors:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200": {}
+      summary: Retrieves current sensors
+swagger: "2.0"

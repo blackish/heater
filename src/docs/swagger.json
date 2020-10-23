@@ -1,0 +1,122 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Heater server",
+        "title": "Heater REST API",
+        "contact": {},
+        "license": {},
+        "version": "1.0"
+    },
+    "host": "192.168.1.111",
+    "basePath": "/heaterapi/v1",
+    "paths": {
+        "/calendar": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Retreives current calendars",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "optional calendar id",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {}
+                }
+            },
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update or create calendar body should contain JSON with data",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "calendar ID",
+                        "name": "id",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "204": {}
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete calendar",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "calendar ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {}
+                }
+            }
+        },
+        "/defaulttemp": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get default temperature",
+                "responses": {
+                    "200": {}
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Set default temperature. Body should contain JSON { TLow: \u003ctlow\u003e, THigh: \u003cthigh\u003e }",
+                "responses": {
+                    "204": {}
+                }
+            }
+        },
+        "/override": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Retreives calendar override",
+                "responses": {
+                    "200": {}
+                }
+            },
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "set calendar override",
+                "responses": {
+                    "204": {}
+                }
+            }
+        },
+        "/sensors": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Retrieves current sensors",
+                "responses": {
+                    "200": {}
+                }
+            }
+        }
+    }
+}

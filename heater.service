@@ -1,0 +1,11 @@
+[Unit]
+Description=heater service
+After=network.target auditd.service
+
+[Service]
+Restart=on-abnormal
+User=root
+Group=root
+ExecStart=/usr/local/bin/heater -cals=/etc/heater/cals.yaml -temp=/etc/heater/temp.yaml
+[Install]
+WantedBy=multi-user.target
