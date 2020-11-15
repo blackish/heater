@@ -59,7 +59,7 @@ func (e *Calendars) Init(fln string) {
 	}
 }
 
-func (e *Calendars) GetTemp(tLow float32, tHigh float32) (float32, float32) {
+func (e *Calendars) GetTemp(tLow float32, tHigh float32) (float32, float32, bool) {
 	rLow, rHigh := tLow, tHigh
 	res := false
 	e.m.Lock()
