@@ -56,7 +56,7 @@ func GetDefaultTemp(ctx *gin.Context) {
 }
 
 // SetDefaultTemp godoc
-// @Summary Set default temperature. Body should contain JSON { TLow: <tlow>, THigh: <thigh> }
+// @Summary Set default temperature. Body should contain JSON { TLow: <tlow>, THigh: <thigh>, Warm: <warm> }
 // @Accept json
 // @Produce json
 // @Success 204
