@@ -67,10 +67,10 @@ func (e *Calendars) GetTemp(tLow float32, tHigh float32) (float32, float32) {
 	for _, v := range e.Cals {
 		rLow, rHigh, res = v.GetTemp(tLow, tHigh)
 		if res {
-			return rLow, rHigh
+			return rLow, rHigh, res
 		}
 	}
-	return rLow, rHigh
+	return rLow, rHigh, res
 }
 
 func (e *Calendars) AddCalendar(cid string, newCals HeaterCalendar) string {

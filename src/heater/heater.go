@@ -18,8 +18,9 @@ type Sensors struct {
 }
 
 type HeaterTemp struct {
-	TLow  float32 `yaml:"TLow"`
-	THigh float32 `yaml:"THigh"`
+	TLow         float32 `yaml:"TLow"`
+	THigh        float32 `yaml:"THigh"`
+	WarmDuration int     `yaml:"Warm"`
 }
 
 type Heater struct {
@@ -69,8 +70,10 @@ func (e *Heater) Stop() {
 }
 
 func (e *Heater) SetRelay(value byte) {
-	e.adaptor.DigitalWrite(e.relay, value)
-	e.pinRelayStatus = value
+	if e.pinRelayStatus != value {
+		e.adaptor.DigitalWrite(e.relay, value)
+		e.pinRelayStatus = value
+	}
 }
 
 func (e *Heater) GetRelay() int {
@@ -123,7 +126,7 @@ func (e *Heater) Runner(setTemp <-chan HeaterTemp, sensorRequest <-chan Sensors,
 			cDate := time.Now()
 			nDate := time.Date(cDate.Year(), cDate.Month(), cDate.Day(), 0, 0, 0, 0, cDate.Location())
 			nDate = nDate.Add(24 * time.Hour)
-			tLow, tHigh := calendar.AllCals.GetTemp(e.DefaultTemp.TLow, e.DefaultTemp.THigh)
+			tLow, tHigh, res := calendar.AllCals.GetTemp(e.DefaultTemp.TLow, e.DefaultTemp.THigh)
 			if cDate.After(e.override) && nDate.Before(e.override) {
 				tLow = e.DefaultTemp.TLow
 				tHigh = e.DefaultTemp.THigh
@@ -134,7 +137,7 @@ func (e *Heater) Runner(setTemp <-chan HeaterTemp, sensorRequest <-chan Sensors,
 			if t > tHigh && r == 0 {
 				e.relayStatus = 1
 			}
-			if (e.relayStatus == 1 && cDate.Minute() <= 15) || (e.relayStatus == 0) {
+			if (e.relayStatus == 1 && cDate.Minute() <= e.DefaultTemp.WarmDuration && !res) || (e.relayStatus == 0) {
 				e.SetRelay(0)
 			} else {
 				e.SetRelay(1)
