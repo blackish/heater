@@ -130,6 +130,7 @@ func (e *Heater) Runner(setTemp <-chan HeaterTemp, sensorRequest <-chan Sensors,
 			if cDate.After(e.override) && nDate.Before(e.override) {
 				tLow = e.DefaultTemp.TLow
 				tHigh = e.DefaultTemp.THigh
+				res = false
 			}
 			if t < tLow && r == 1 {
 				e.relayStatus = 0
