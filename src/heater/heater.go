@@ -127,7 +127,7 @@ func (e *Heater) Runner(setTemp <-chan HeaterTemp, sensorRequest <-chan Sensors,
 			nDate := time.Date(cDate.Year(), cDate.Month(), cDate.Day(), 0, 0, 0, 0, cDate.Location())
 			nDate = nDate.Add(24 * time.Hour)
 			tLow, tHigh, res := calendar.AllCals.GetTemp(e.DefaultTemp.TLow, e.DefaultTemp.THigh)
-			if cDate.After(e.override) && nDate.Before(e.override) {
+			if nDate.After(e.override) && cDate.Before(e.override) {
 				tLow = e.DefaultTemp.TLow
 				tHigh = e.DefaultTemp.THigh
 				res = false

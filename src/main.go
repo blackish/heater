@@ -130,8 +130,8 @@ func DeleteCalendar(ctx *gin.Context) {
 // @Router /override [put]
 func SetOverride(ctx *gin.Context) {
 	var ovr OvrType
-	if ctx.BindJSON(&ovr) != nil {
-		fmt.Println("errorjson")
+	if err := ctx.BindJSON(&ovr); err != nil {
+		fmt.Println(err)
 		ctx.Status(400)
 		return
 	}
@@ -184,5 +184,5 @@ func main() {
 		v1.PUT("/override", SetOverride)
 	}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	r.Run("127.0.0.1:8080")
+	r.Run(":8080")
 }
